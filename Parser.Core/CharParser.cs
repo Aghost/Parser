@@ -40,6 +40,17 @@ namespace Parser.Core
 
                     Token t = new('F', tokenbuilder.ToString());
                     tokens.Add(t);
+                } else if (input[i] == '(') {
+                    i++;
+                    tokenbuilder.Clear();
+
+                    while (input[i] != ')') {
+                        tokenbuilder.Append(input[i]);
+                        i++;
+                    }
+
+                    Token t = new('E', tokenbuilder.ToString());
+                    tokens.Add(t);
                 } else {
                     i++;
                 }

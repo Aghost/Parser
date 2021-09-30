@@ -14,26 +14,25 @@ namespace Parser.Core
             StringBuilder tokenbuilder = new();
 
             for (int i = 0; i < input.Length;) {
-                if (input[i] >= 48 && input[i] <= 57) {
-                    tokenbuilder.Clear();
+                tokenbuilder.Clear();
 
-                    while (i < input.Length && input[i] >= 48 && input[i] <= 57) {
+                if (input[i] >= '0' && input[i] <= '9') {
+
+                    while (i < input.Length && input[i] >= '0' && input[i] <= '9') {
                         tokenbuilder.Append(input[i]);
                         i++;
                     }
 
                     Token t = new('N', tokenbuilder.ToString());
                     tokens.Add(t);
-                } else if (input[i] == 42 || input[i] == 43 || input[i] == 45 || input[i] == 47) {
+                } else if (input[i] == '+' || input[i] == '-' || input[i] == '*' || input[i] == '/') {
                     Token t = new(input[i], input[i].ToString());
                     tokens.Add(t);
                     i++;
-                } else if (input[i] >= 56 && input[i] <= 90) {
-                    tokenbuilder.Clear();
-
+                } else if (input[i] >= 'A' && input[i] <= 'Z') {
                     while (i < input.Length &&
-                            (input[i] >= 56 && input[i] <= 90 ||
-                            input[i] >= 97 && input[i] <= 122)) {
+                            (input[i] >= 'A' && input[i] <= 'Z' ||
+                            input[i] >= 'a' && input[i] <= 'z')) {
                         tokenbuilder.Append(input[i]);
                         i++;
                     }
@@ -42,8 +41,6 @@ namespace Parser.Core
                     tokens.Add(t);
                 } else if (input[i] == '(') {
                     i++;
-                    tokenbuilder.Clear();
-
                     while (input[i] != ')') {
                         tokenbuilder.Append(input[i]);
                         i++;
